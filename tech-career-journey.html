@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Journey: Intern to Full-Time Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#060f22;
+    --navy-900:#0b1b36;
+    --navy-800:#142c52;
+    --navy-700:#20406f;
+    --blue-soft:#8ca6d1;
+    --paper:#f7f8fb;
+    --paper-dim:#eceff5;
+    --ink:#0e1526;
+    --ink-soft:#5b6379;
+    --amber:#e6a13d;
+    --amber-deep:#c9821f;
+    --line:#dde2ec;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0; height:100%;
+    font-family:var(--font);
+    background:var(--navy-950);
+    color:var(--ink);
+    overflow:hidden;
+  }
+
+  .deck{ position:relative; width:100vw; height:100vh; }
+
+  .slide{
+    position:absolute; inset:0;
+    display:none;
+    flex-direction:column;
+    background:var(--paper);
+    padding: clamp(28px, 5.5vw, 88px) clamp(36px, 7.5vw, 112px);
+  }
+  .slide.active{ display:flex; animation: rise .5s ease; }
+  @keyframes rise{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){ .slide.active{ animation:none; } }
+
+  .slide.dark{ background:var(--navy-900); color:var(--paper); }
+  .slide.dark .soft{ color:var(--blue-soft); }
+  .slide.dark .kicker{ color:var(--amber); }
+
+  .kicker{ font-size: clamp(13px, 1vw, 15px); font-weight:600; color:var(--amber-deep); margin:0 0 12px 0; }
+
+  h1{
+    font-size: clamp(32px, 4.2vw, 58px); font-weight:800; line-height:1.08;
+    letter-spacing:-0.02em; margin:0 0 16px 0; color:var(--navy-950); max-width: 16ch;
+  }
+  .slide.dark h1{ color:#fff; }
+
+  h2{
+    font-size: clamp(24px, 2.8vw, 38px); font-weight:700; line-height:1.15;
+    letter-spacing:-0.01em; margin:0 0 8px 0; color:var(--navy-950); max-width: 24ch;
+  }
+  .slide.dark h2{ color:#fff; }
+
+  p.lead{ font-size: clamp(15px, 1.2vw, 19px); line-height:1.55; color:var(--ink-soft); max-width:58ch; margin:0; }
+  .slide.dark p.lead{ color:var(--blue-soft); }
+  .soft{ color:var(--ink-soft); }
+
+  .body{ flex:1; display:flex; flex-direction:column; justify-content:center; gap: clamp(14px, 2vh, 28px); min-height:0; }
+
+  .foot{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; border-top:1px solid var(--line); flex-shrink:0;
+  }
+  .slide.dark .foot{ border-top:1px solid rgba(255,255,255,.14); }
+  .foot .tag, .foot .num{ font-size:13px; color:var(--ink-soft); font-weight:500; }
+  .slide.dark .foot .tag, .slide.dark .foot .num{ color:var(--blue-soft); }
+  .foot .time{
+    font-size:12px; font-weight:700; color:var(--amber-deep);
+    background:rgba(230,161,61,0.12); padding:4px 12px; border-radius:20px;
+  }
+  .slide.dark .foot .time{ background:rgba(230,161,61,0.18); color:var(--amber); }
+
+  /* Title slide */
+  .title-slide{ justify-content:center; }
+  .title-slide .mark{ width:44px; height:6px; background:var(--amber); border-radius:2px; margin-bottom:26px; }
+  .title-slide h1{ max-width:17ch; font-size:clamp(38px,5.2vw,70px); }
+  .title-meta{ margin-top:38px; display:flex; gap:34px; flex-wrap:wrap; }
+  .title-meta div{ font-size:15px; color:var(--blue-soft); }
+  .title-meta strong{ display:block; color:#fff; font-size:16px; font-weight:600; margin-bottom:2px; }
+
+  /* Agenda / schedule */
+  .schedule{ list-style:none; margin:0; padding:0; max-width:680px; }
+  .schedule li{
+    display:flex; align-items:center; gap:18px;
+    padding:11px 0; border-bottom:1px solid var(--line);
+    font-size:clamp(14.5px,1.15vw,17px); color:var(--navy-950);
+  }
+  .schedule li .t{
+    font-weight:700; color:var(--amber-deep); min-width:56px; font-size:13.5px;
+  }
+  .schedule li .label{ flex:1; font-weight:600; }
+  .schedule .total{
+    margin-top:14px; font-size:14px; font-weight:700; color:var(--navy-800);
+    display:flex; align-items:center; gap:10px;
+  }
+  .schedule .total .pill{ background:var(--navy-950); color:#fff; padding:5px 14px; border-radius:20px; font-size:13px; }
+
+  /* Icebreaker */
+  .prompt-list{ list-style:none; margin:0; padding:0; max-width:600px; }
+  .prompt-list li{
+    font-size:clamp(16px,1.3vw,19px); font-weight:600; color:var(--navy-950);
+    padding:14px 0 14px 30px; border-bottom:1px solid var(--line); position:relative;
+  }
+  .prompt-list li:last-child{ border-bottom:none; }
+  .prompt-list li::before{
+    content:"?"; position:absolute; left:0; top:12px; width:20px; height:20px;
+    border-radius:50%; background:var(--amber); color:var(--navy-950);
+    font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* Timeline (roadmap) */
+  .timeline{ position:relative; display:flex; justify-content:space-between; align-items:flex-start; margin-top: clamp(14px, 3vh, 36px); padding-top: 6px; }
+  .timeline::before{ content:""; position:absolute; top:15px; left:0; right:0; height:2px; background:var(--line); }
+  .tl-node{ position:relative; flex:1; padding-right:14px; }
+  .tl-node:last-child{ padding-right:0; }
+  .tl-dot{ width:30px; height:30px; border-radius:50%; background:var(--navy-950); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; margin-bottom:16px; position:relative; z-index:1; }
+  .tl-node.current .tl-dot{ background:var(--amber); color:var(--navy-950); }
+  .tl-node h3{ font-size:15px; font-weight:700; margin:0 0 5px 0; color:var(--navy-950); }
+  .tl-node p{ font-size:13px; color:var(--ink-soft); margin:0; line-height:1.5; max-width:21ch; }
+
+  /* Two panel comparison (why internships) */
+  .panels{ display:flex; gap:clamp(22px,3vw,44px); margin-top:8px; }
+  .panel{ flex:1; border:1px solid var(--line); border-radius:6px; padding:22px 24px; }
+  .panel .plabel{ font-size:13px; font-weight:700; color:var(--ink-soft); margin-bottom:14px; }
+  .panel .pmain{ display:flex; align-items:center; gap:12px; font-size:16px; font-weight:700; color:var(--navy-950); }
+  .panel .pmain .box{
+    background:var(--navy-950); color:#fff; padding:8px 14px; border-radius:6px; font-size:14px; font-weight:700;
+  }
+  .panel.blocked .pmain .box.blocker{ background:var(--amber-deep); }
+  .panel .arrow{ color:var(--ink-soft); font-size:18px; }
+
+  /* Achievements grid */
+  .achieve-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px 32px; max-width:820px; }
+  .achieve-item{ display:flex; gap:16px; align-items:flex-start; padding:16px; border:1px solid var(--line); border-radius:6px; }
+  .achieve-item .num{ font-size:22px; font-weight:800; color:var(--amber-deep); flex-shrink:0; }
+  .achieve-item p{ margin:0; font-size:15px; font-weight:600; color:var(--navy-950); line-height:1.4; }
+
+  /* Survival / thoughts cloud layout */
+  .thoughts{ position:relative; margin-top:10px; }
+  .thought-row{ display:flex; flex-wrap:wrap; gap:16px; }
+  .bubble{
+    background:var(--paper-dim); border:1px solid var(--line); border-radius:14px;
+    padding:14px 20px; font-size:15px; font-weight:600; color:var(--navy-800);
+  }
+  .bubble.accent{ background:rgba(230,161,61,0.14); border-color:rgba(230,161,61,0.4); color:var(--amber-deep); }
+
+  /* Mind-map style tips */
+  .tip-list{ list-style:none; margin:0; padding:0; max-width:680px; }
+  .tip-list li{
+    display:flex; align-items:center; gap:16px; padding:13px 0; border-bottom:1px solid var(--line);
+    font-size:clamp(15px,1.2vw,18px); font-weight:600; color:var(--navy-950);
+  }
+  .tip-list li:last-child{ border-bottom:none; }
+  .tip-list li .dot{ width:10px; height:10px; border-radius:50%; background:var(--amber); flex-shrink:0; }
+
+  /* Numbered card grid (how to get selected) */
+  .grid5{ display:grid; grid-template-columns:1fr 1fr; gap:16px 28px; max-width:920px; }
+  .grid5 .card{ display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .grid5 .card .n{
+    flex-shrink:0; width:28px; height:28px; border-radius:6px; background:var(--navy-950); color:#fff;
+    font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;
+  }
+  .grid5 .card h3{ margin:0 0 4px 0; font-size:15.5px; font-weight:700; color:var(--navy-950); }
+  .grid5 .card p{ margin:0; font-size:13.5px; color:var(--ink-soft); line-height:1.45; }
+
+  /* Two column challenges */
+  .cols{ display:flex; gap: clamp(26px,4vw,60px); }
+  .col{ flex:1; }
+  .col h3{ font-size:14px; font-weight:700; color:var(--navy-800); margin:0 0 14px 0; padding-bottom:9px; border-bottom:2px solid var(--navy-800); }
+  .col.alt h3{ color:var(--amber-deep); border-bottom-color:var(--amber-deep); }
+  .col ul{ list-style:none; margin:0; padding:0; }
+  .col li{ font-size:clamp(14.5px,1.1vw,16.5px); line-height:1.5; color:var(--ink); padding:10px 0; border-bottom:1px solid var(--line); position:relative; padding-left:22px; }
+  .col li:last-child{ border-bottom:none; }
+  .col li::before{ content:""; position:absolute; left:0; top:17px; width:8px; height:8px; background:var(--navy-800); border-radius:50%; }
+  .col.alt li::before{ background:var(--amber-deep); }
+
+  /* Growth grid */
+  .growth-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px 28px; max-width:900px; }
+  .growth-item{ padding:14px 0; border-bottom:1px solid var(--line); }
+  .growth-item h3{ margin:0 0 4px 0; font-size:15px; font-weight:700; color:var(--navy-950); }
+  .growth-item p{ margin:0; font-size:13.5px; color:var(--ink-soft); line-height:1.45; }
+
+  /* Key takeaway / thank you */
+  .quote-block{ background:linear-gradient(120deg, var(--navy-900), var(--navy-800)); color:#fff; padding:26px 32px; border-radius:8px; max-width:680px; }
+  .quote-block p{ margin:0; font-size:clamp(19px,2vw,27px); font-weight:700; line-height:1.35; }
+  .takeaway-mini{ list-style:none; margin:0; padding:0; max-width:640px; }
+  .takeaway-mini li{ font-size:15px; font-weight:600; color:var(--navy-950); padding:9px 0; border-bottom:1px solid var(--line); }
+  .takeaway-mini li:last-child{ border-bottom:none; }
+  .thanks-row{ display:flex; justify-content:space-between; align-items:center; gap:30px; flex-wrap:wrap; margin-top:6px; }
+  .qr-box{
+    width:100px; height:100px; border:2px dashed var(--line); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--ink-soft); text-align:center; padding:8px; flex-shrink:0;
+  }
+  .contact-line{ font-size:15px; font-weight:600; color:var(--navy-950); }
+
+  /* Nav controls */
+  .nav{ position:fixed; bottom:22px; right:28px; z-index:10; display:flex; align-items:center; gap:14px; font-size:13px; color:var(--ink-soft); }
+  .nav button{ width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .15s ease; }
+  .nav button:hover{ border-color:var(--navy-800); }
+  .nav button svg{ width:16px; height:16px; stroke:var(--navy-950); }
+  .nav .count{ font-variant-numeric:tabular-nums; min-width:46px; text-align:center; }
+
+  .progress{ position:fixed; top:0; left:0; height:3px; background:var(--amber); z-index:10; transition:width .35s ease; }
+
+  @media (max-width: 760px){
+    .cols, .panels{ flex-direction:column; }
+    .achieve-grid, .grid5, .growth-grid{ grid-template-columns:1fr; }
+    .timeline{ flex-wrap:wrap; row-gap:20px; }
+    .timeline::before{ display:none; }
+    .tl-node{ flex:1 1 45%; padding-right:0; }
+    .thanks-row{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- 1. TITLE -->
+  <section class="slide dark active title-slide">
+    <div class="body">
+      <div class="mark"></div>
+      <div class="kicker">Tech career sharing session · 60 minutes</div>
+      <h1>From Intern to Full-Time Software Developer</h1>
+      <p class="lead">My journey at One More Group — what I learned, what nearly stopped me, and what I'd tell my university self.</p>
+      <div class="title-meta">
+        <div><strong>Sereyvichea Saro</strong>Software Developer, One More Group</div>
+        <div><strong>[Event Name]</strong>Phnom Penh, Cambodia</div>
+        <div><strong>[Date]</strong>Sharing session</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. AGENDA / SCHEDULE -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">Session plan · 60 minutes total</div>
+      <h2>Today's agenda</h2>
+      <ul class="schedule">
+        <li><span class="t">2 min</span><span class="label">Welcome &amp; introduction</span></li>
+        <li><span class="t">5 min</span><span class="label">Let's get to know each other</span></li>
+        <li><span class="t">6 min</span><span class="label">My roadmap: intern to full-time developer</span></li>
+        <li><span class="t">4 min</span><span class="label">Why did I do internships?</span></li>
+        <li><span class="t">4 min</span><span class="label">My achievements</span></li>
+        <li><span class="t">5 min</span><span class="label">Survival: 3 years ago</span></li>
+        <li><span class="t">6 min</span><span class="label">Tips that helped me most</span></li>
+        <li><span class="t">8 min</span><span class="label">How to get selected for an internship</span></li>
+        <li><span class="t">7 min</span><span class="label">Challenges at each stage</span></li>
+        <li><span class="t">5 min</span><span class="label">Growth &amp; lessons from One More Group</span></li>
+        <li><span class="t">7 min</span><span class="label">Key takeaway, thank you &amp; Q&amp;A</span></li>
+      </ul>
+      <div class="total"><span class="pill">60 min</span> Total session length</div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">2 min</span><span class="num">2 / 12</span></div>
+  </section>
+
+  <!-- 3. ICEBREAKER -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">Let's get to know each other!</div>
+      <h2>Before we start — a quick round</h2>
+      <p class="lead">Turn to the person next to you, or just shout it out. Two minutes, then we'll hear a few answers.</p>
+      <ul class="prompt-list">
+        <li>What year are you in, and what are you studying?</li>
+        <li>Have you built anything outside of class yet?</li>
+        <li>What's the one thing you're most unsure about in this career path?</li>
+      </ul>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">5 min</span><span class="num">3 / 12</span></div>
+  </section>
+
+  <!-- 4. ROADMAP -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">My roadmap</div>
+      <h2>How I got from student to full-time developer</h2>
+      <div class="timeline">
+        <div class="tl-node"><div class="tl-dot">1</div><h3>Intern, One More Group</h3><p>Started in Year 4 of university</p></div>
+        <div class="tl-node"><div class="tl-dot">2</div><h3>Intern at ITC + full time</h3><p>Year 5 — internship at ITC alongside a full-time role at One More Group</p></div>
+        <div class="tl-node"><div class="tl-dot">3</div><h3>Graduated</h3><p>Information &amp; Communication Engineering</p></div>
+        <div class="tl-node current"><div class="tl-dot">4</div><h3>Full-time developer</h3><p>Hired as a full-time software developer</p></div>
+        <div class="tl-node"><div class="tl-dot">5</div><h3>Kept growing</h3><p>Through real projects and real challenges</p></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">6 min</span><span class="num">4 / 12</span></div>
+  </section>
+
+  <!-- 5. WHY INTERNSHIPS -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">The question everyone asks</div>
+      <h2>Why did I do internships?</h2>
+      <p class="lead">Every job wants experience. But how do you get experience before anyone gives you a job? An internship is how you break that loop.</p>
+      <div class="panels">
+        <div class="panel blocked">
+          <div class="plabel">Without an internship</div>
+          <div class="pmain">Me <span class="arrow">→</span> <span class="box blocker">Zero experience</span> <span class="arrow">→</span> <span class="box">The Job</span></div>
+        </div>
+        <div class="panel">
+          <div class="plabel">With an internship</div>
+          <div class="pmain">Me <span class="arrow">→</span> <span class="box">Internship</span> <span class="arrow">→</span> <span class="box">The Job</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">4 min</span><span class="num">5 / 12</span></div>
+  </section>
+
+  <!-- 6. MY ACHIEVEMENTS -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">Along the way</div>
+      <h2>My achievements</h2>
+      <div class="achieve-grid">
+        <div class="achieve-item"><div class="num">01</div><p>Found my real passion</p></div>
+        <div class="achieve-item"><div class="num">02</div><p>Developed professionalism</p></div>
+        <div class="achieve-item"><div class="num">03</div><p>Earned a full-time job opportunity</p></div>
+        <div class="achieve-item"><div class="num">04</div><p>Gained practical work experience</p></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">4 min</span><span class="num">6 / 12</span></div>
+  </section>
+
+  <!-- 7. SURVIVAL: 3 YEARS AGO -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">Survival · 3 years ago</div>
+      <h2>What was actually going through my head</h2>
+      <p class="lead">If you're feeling lost right now, I want you to know — this is exactly where I started too.</p>
+      <div class="thoughts">
+        <div class="thought-row">
+          <div class="bubble">"What is it? I don't even understand the job posting."</div>
+          <div class="bubble">"How? Who do I even ask?"</div>
+        </div>
+        <div class="thought-row" style="margin-top:16px;">
+          <div class="bubble accent">"Maybe everyone else already knows what I don't."</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">5 min</span><span class="num">7 / 12</span></div>
+  </section>
+
+  <!-- 8. TIPS -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">What actually helped</div>
+      <h2>Tips that made the biggest difference</h2>
+      <ul class="tip-list">
+        <li><span class="dot"></span>Actively source information about opportunities</li>
+        <li><span class="dot"></span>Set a clear goal and a realistic expectation</li>
+        <li><span class="dot"></span>Keep learning, stay positive, build a good network</li>
+        <li><span class="dot"></span>Stay engaged and active — don't wait to be noticed</li>
+        <li><span class="dot"></span>Track your own projects and progress</li>
+      </ul>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">6 min</span><span class="num">8 / 12</span></div>
+  </section>
+
+  <!-- 9. HOW TO GET SELECTED -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">Practical advice</div>
+      <h2>How to get selected for an internship</h2>
+      <div class="grid5">
+        <div class="card"><div class="n">1</div><div><h3>Build your foundation</h3><p>Polish your GitHub, work on side projects, show real work — not just certificates.</p></div></div>
+        <div class="card"><div class="n">2</div><div><h3>Network early</h3><p>Join tech communities and attend events before you need something from them.</p></div></div>
+        <div class="card"><div class="n">3</div><div><h3>Apply proactively</h3><p>Don't wait — send CVs to companies you like, and personalize every message.</p></div></div>
+        <div class="card"><div class="n">4</div><div><h3>Prepare well for the interview</h3><p>Know exactly what's in your CV, and be ready to demo your work.</p></div></div>
+        <div class="card"><div class="n">5</div><div><h3>Show attitude</h3><p>Companies hire attitude and train skills. Curiosity and willingness to learn go a long way.</p></div></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">8 min</span><span class="num">9 / 12</span></div>
+  </section>
+
+  <!-- 10. CHALLENGES AT EACH STAGE -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">It doesn't get easier — it changes</div>
+      <h2>Challenges at each stage</h2>
+      <div class="cols">
+        <div class="col">
+          <h3>Internship phase</h3>
+          <ul>
+            <li>Technical challenges you haven't seen before</li>
+            <li>Being scared to ask "basic" questions</li>
+            <li>A doubt mindset — wondering if you belong</li>
+          </ul>
+        </div>
+        <div class="col alt">
+          <h3>Full-time staff</h3>
+          <ul>
+            <li>Full ownership and accountability for your work</li>
+            <li>Constant speed vs. quality trade-offs</li>
+            <li>Giving and receiving honest feedback</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">7 min</span><span class="num">10 / 12</span></div>
+  </section>
+
+  <!-- 11. GROWTH & LESSONS -->
+  <section class="slide">
+    <div class="body">
+      <div class="kicker">Reflecting back</div>
+      <h2>Growth &amp; lessons from One More Group</h2>
+      <div class="growth-grid">
+        <div class="growth-item"><h3>Technical growth</h3><p>Polishing my GitHub, taking side projects seriously, showcasing real work.</p></div>
+        <div class="growth-item"><h3>Problem-solving mindset</h3><p>Moved from "I don't know" to "let me try and figure it out."</p></div>
+        <div class="growth-item"><h3>Business mindset</h3><p>Learning to turn a business need into working code.</p></div>
+        <div class="growth-item"><h3>Time management</h3><p>Deadlines teach prioritization better than any book.</p></div>
+        <div class="growth-item"><h3>Resilience</h3><p>Bugs and hard feedback — all of it made me stronger.</p></div>
+        <div class="growth-item"><h3>Teamwork</h3><p>Learning to adapt my work to the team, not just to myself.</p></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">5 min</span><span class="num">11 / 12</span></div>
+  </section>
+
+  <!-- 12. KEY TAKEAWAY / THANK YOU -->
+  <section class="slide dark">
+    <div class="body">
+      <div class="kicker">Key takeaway</div>
+      <div class="quote-block">
+        <p>"Your journey does not need to be perfect — it just needs to be yours."</p>
+      </div>
+      <ul class="takeaway-mini">
+        <li style="color:#fff;">Start your journey with action, not perfection</li>
+        <li style="color:#fff;">Build connections — your network is your net worth</li>
+        <li style="color:#fff;">Every challenge is data for your growth</li>
+        <li style="color:#fff;">Be grateful, stay humble, keep learning</li>
+      </ul>
+      <div class="thanks-row">
+        <div>
+          <h2 style="color:#fff; margin-bottom:6px;">Thank you — questions welcome!</h2>
+          <div class="contact-line" style="color:var(--blue-soft);">@SaroSereyvichea · Let's connect</div>
+        </div>
+        <div class="qr-box">Add your QR code here</div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">My Journey · One More Group</span><span class="time">7 min</span><span class="num">12 / 12</span></div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="prevBtn" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="count"><span id="curNum">1</span> / <span id="totalNum">12</span></span>
+  <button id="nextBtn" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  const curNum = document.getElementById('curNum');
+  const totalNum = document.getElementById('totalNum');
+  const progress = document.getElementById('progress');
+  totalNum.textContent = total;
+
+  function show(idx){
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, idx));
+    slides[current].classList.add('active');
+    curNum.textContent = current + 1;
+    progress.style.width = ((current + 1) / total * 100) + '%';
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => show(current + 1));
+  document.getElementById('prevBtn').addEventListener('click', () => show(current - 1));
+
+  window.addEventListener('keydown', (e) => {
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); show(current + 1); }
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); show(current - 1); }
+  });
+
+  let touchStartX = 0;
+  window.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+  window.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(dx > 50) show(current - 1);
+    if(dx < -50) show(current + 1);
+  });
+
+  show(0);
+</script>
+
+</body>
+</html>
