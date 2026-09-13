@@ -3,523 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus to Career</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>From Campus to Career</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy-950:#060f22;
-    --navy-900:#0b1b36;
-    --navy-800:#142c52;
-    --navy-700:#20406f;
-    --blue-soft:#8ca6d1;
-    --paper:#f7f8fb;
-    --paper-dim:#eceff5;
-    --ink:#0e1526;
-    --ink-soft:#5b6379;
-    --amber:#e6a13d;
-    --amber-deep:#c9821f;
-    --line:#dde2ec;
-    --text: clamp(20px, min(2vw, 3.5vh), 36px);
-    --detail: clamp(18px, min(1.65vw, 2.9vh), 30px);
-    --small: clamp(15px, min(1.3vw, 2.3vh), 24px);
-    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --navy:#0B2447;
+    --navy-deep:#071A36;
+    --navy-soft:#19376D;
+    --ink:#0B2447;
+    --mist:#E8EDF5;
+    --white:#FFFFFF;
+    --muted:#5B6B85;
+    --line:#C9D3E3;
   }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--navy-deep);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);overflow:hidden}
 
-  *{ box-sizing:border-box; }
-
-  html,body{
-    margin:0; padding:0; height:100%;
-    font-family:var(--font);
-    font-size:var(--text);
-    background:var(--navy-950);
-    color:var(--ink);
-    overflow:hidden;
-  }
-
-  .deck{ position:relative; width:100vw; height:100vh; }
-
+  .deck{position:relative;width:100vw;height:100vh}
   .slide{
-    position:absolute; inset:0;
-    display:none;
-    flex-direction:column;
-    background:var(--paper);
-    padding: clamp(24px, 4vh, 52px) clamp(28px, 4vw, 80px) 76px;
-    overflow-y:auto;
+    position:absolute;inset:0;display:none;
+    padding:clamp(32px,6vw,88px) clamp(28px,8vw,120px);
+    background:var(--white);color:var(--ink);
   }
-  .slide.active{ display:flex; }
-  .slide.active > *{ animation: rise .5s ease; }
-  @keyframes rise{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
-  @media (prefers-reduced-motion: reduce){ .slide.active > *{ animation:none; } }
+  .slide.active{display:flex;flex-direction:column;justify-content:center}
+  .slide.dark{background:var(--navy);color:var(--white)}
+  .slide.dark .num,.slide.dark .sub,.slide.dark p,.slide.dark li{color:rgba(255,255,255,.82)}
+  .slide.dark .line{background:rgba(255,255,255,.28)}
 
-  .slide.dark{ background:var(--navy-900); color:var(--paper); }
-  .slide.dark .soft{ color:var(--blue-soft); }
-  .slide.dark .kicker{ color:var(--amber); }
+  h1{font-size:clamp(40px,8vw,104px);font-weight:800;line-height:.98;letter-spacing:-.03em;max-width:14ch}
+  h2{font-size:clamp(30px,4.6vw,60px);font-weight:700;line-height:1.05;letter-spacing:-.025em;max-width:18ch;margin-bottom:.5em}
+  h3{font-size:clamp(18px,1.7vw,24px);font-weight:700;margin-bottom:.35em}
+  p,li{font-size:clamp(16px,1.5vw,22px);line-height:1.5;color:var(--muted);max-width:60ch}
+  .sub{font-size:clamp(18px,2vw,28px);font-weight:500;color:var(--muted);margin-top:.6em;max-width:36ch}
+  .num{font-size:clamp(14px,1.2vw,18px);font-weight:600;color:var(--muted);margin-bottom:1.2em;letter-spacing:.01em}
+  .line{height:2px;width:64px;background:var(--navy);margin-bottom:2em}
 
-  .kicker{ font-size:var(--small); font-weight:600; color:var(--amber-deep); margin:0 0 12px 0; }
+  ul{list-style:none;display:flex;flex-direction:column;gap:.55em}
+  li{padding-left:1.4em;position:relative}
+  li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;border-radius:50%;background:var(--navy)}
+  .slide.dark li::before{background:var(--white)}
 
-  h1{
-    font-size:clamp(48px, min(6vw, 10vh), 112px); font-weight:800; line-height:1.08;
-    letter-spacing:-0.02em; margin:0 0 16px 0; color:var(--navy-950);
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(20px,3vw,44px);margin-top:.5em}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;margin-top:1em}
+  .step{border-top:3px solid var(--navy);padding-top:14px}
+  .slide.dark .step{border-top-color:var(--white)}
+  .step b{display:block;font-size:clamp(16px,1.4vw,20px);margin-bottom:.3em}
+  .step span{font-size:clamp(14px,1.15vw,17px);color:var(--muted);line-height:1.45}
+  .slide.dark .step span{color:rgba(255,255,255,.78)}
+
+  /* editable placeholders — fill these before the session */
+  .fill{
+    border:2px dashed var(--line);border-radius:6px;padding:14px 18px;
+    color:var(--muted);font-size:clamp(14px,1.2vw,18px);line-height:1.45;
+    min-height:64px;outline:none;background:transparent
   }
-  .slide.dark h1{ color:#fff; }
+  .fill:focus{border-color:var(--navy);color:var(--ink)}
+  .slide.dark .fill{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.7)}
+  .slide.dark .fill:focus{border-color:var(--white);color:var(--white)}
 
-  h2{
-    font-size:clamp(32px, min(3.6vw, 6.4vh), 68px); font-weight:700; line-height:1.15;
-    letter-spacing:-0.01em; margin:0 0 8px 0; color:var(--navy-950);
-  }
-  .slide.dark h2{ color:#fff; }
+  .agenda{display:grid;grid-template-columns:1fr 1fr;gap:10px 48px;counter-reset:ag}
+  .agenda div{font-size:clamp(15px,1.45vw,22px);font-weight:500;padding:.45em 0;border-bottom:1px solid rgba(255,255,255,.18);display:flex;gap:1em}
+  .agenda div::before{counter-increment:ag;content:counter(ag,decimal-leading-zero);font-weight:700;opacity:.55;min-width:2.2ch}
 
-  p.lead{ font-size:var(--text); line-height:1.55; color:var(--ink-soft); max-width:100%; margin:0; }
-  .slide.dark p.lead{ color:var(--blue-soft); }
-  .soft{ color:var(--ink-soft); }
+  .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:28px;align-items:start;margin-top:.6em}
+  .vs .mid{font-weight:800;font-size:clamp(20px,2vw,30px);align-self:center;opacity:.5}
 
-  .body{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:clamp(12px, 2vh, 24px); min-height:min-content; padding-bottom:24px; }
-
-  .foot{
-    gap:24px; margin-top:auto;
-    display:flex; align-items:center; justify-content:space-between;
-    padding-top:16px; border-top:1px solid var(--line); flex-shrink:0;
-  }
-  .slide.dark .foot{ border-top:1px solid rgba(255,255,255,.14); }
-  .foot .tag{ font-size:var(--small); color:var(--ink-soft); font-weight:500; }
-  .slide.dark .foot .tag{ color:var(--blue-soft); }
-  .foot .time{
-    font-size:var(--small); font-weight:700; color:var(--amber-deep);
-    background:rgba(230,161,61,0.12); padding:4px 12px; border-radius:20px;
-  }
-  .slide.dark .foot .time{ background:rgba(230,161,61,0.18); color:var(--amber); }
-
-  /* Title slide */
-  .title-slide{ justify-content:center; }
-  .title-slide .mark{ width:44px; height:6px; background:var(--amber); border-radius:2px; margin-bottom:26px; }
-  .title-slide h1{ font-size:clamp(54px, min(7vw, 12vh), 132px); }
-  .title-meta{ margin-top:38px; display:flex; gap:34px; flex-wrap:wrap; }
-  .title-meta div{ font-size:var(--text); color:var(--blue-soft); }
-  .title-meta strong{ display:block; color:#fff; font-size:var(--text); font-weight:600; margin-bottom:2px; }
-
-  /* Agenda / schedule */
-  .schedule{ display:grid; grid-template-rows:repeat(6, auto); grid-auto-flow:column; grid-template-columns:1fr 1fr; column-gap:clamp(32px, 5vw, 80px); list-style:none; margin:0; padding:0; width:100%; }
-  .schedule li{
-    min-width:0;
-    display:flex; align-items:center; gap:18px;
-    padding:9px 0; border-bottom:1px solid var(--line);
-    font-size:var(--text); color:var(--navy-950);
-  }
-  .schedule li .t{
-    font-weight:700; color:var(--amber-deep); min-width:3.4em; font-size:var(--detail);
-  }
-  .schedule li .label{ flex:1; font-weight:600; }
-  .total{
-    margin-top:14px; font-size:var(--detail); font-weight:700; color:var(--navy-800);
-    display:flex; align-items:center; gap:10px;
-  }
-  .total .pill{ background:var(--navy-950); color:#fff; padding:5px 14px; border-radius:20px; font-size:var(--small); }
-
-  /* Icebreaker */
-  .prompt-list{ list-style:none; margin:0; padding:0; width:100%; }
-  .prompt-list li{
-    font-size:var(--text); font-weight:600; color:var(--navy-950);
-    padding:clamp(16px, 3vh, 32px) 0 clamp(16px, 3vh, 32px) 48px; border-bottom:1px solid var(--line); position:relative;
-  }
-  .prompt-list li:last-child{ border-bottom:none; }
-  .prompt-list li::before{
-    content:"?"; position:absolute; left:0; top:clamp(16px, 3vh, 32px); width:32px; height:32px;
-    border-radius:50%; background:var(--amber); color:var(--navy-950);
-    font-size:var(--small); font-weight:800; display:flex; align-items:center; justify-content:center;
-  }
-
-  /* Timeline (roadmap) */
-  .timeline{ position:relative; display:flex; justify-content:space-between; align-items:flex-start; margin-top: clamp(14px, 3vh, 36px); padding-top: 6px; }
-  .timeline::before{ content:""; position:absolute; top:28px; left:0; right:0; height:2px; background:var(--line); }
-  .tl-node{ position:relative; flex:1; min-width:0; padding-right:24px; }
-  .tl-node:last-child{ padding-right:0; }
-  .tl-dot{ width:44px; height:44px; border-radius:50%; background:var(--navy-950); color:#fff; display:flex; align-items:center; justify-content:center; font-size:var(--small); font-weight:700; margin-bottom:16px; position:relative; z-index:1; }
-  .tl-node.current .tl-dot{ background:var(--amber); color:var(--navy-950); }
-  .tl-node h3{ font-size:var(--detail); font-weight:700; margin:0 0 5px 0; color:var(--navy-950); }
-  .tl-node p{ font-size:var(--detail); color:var(--ink-soft); margin:0; line-height:1.5; }
-
-  /* Two panel comparison (why internships) */
-  .panels{ display:flex; gap:clamp(22px,3vw,44px); margin-top:8px; }
-  .panel{ flex:1; min-width:0; border:1px solid var(--line); border-radius:6px; padding:22px 24px; }
-  .panel .plabel{ font-size:var(--small); font-weight:700; color:var(--ink-soft); margin-bottom:14px; }
-  .panel .pmain{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; font-size:var(--text); font-weight:700; color:var(--navy-950); }
-  .panel .pmain .box{
-    background:var(--navy-950); color:#fff; padding:8px 14px; border-radius:6px; font-size:var(--detail); font-weight:700;
-  }
-  .panel.blocked .pmain .box.blocker{ background:var(--amber-deep); }
-  .panel .arrow{ color:var(--ink-soft); font-size:var(--text); }
-
-  /* Achievements grid */
-  .achieve-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px 32px; width:100%; }
-  .achieve-item{ display:flex; gap:16px; align-items:flex-start; padding:clamp(24px, 4vh, 48px); border:1px solid var(--line); border-radius:6px; }
-  .achieve-item .num{ font-size:clamp(30px, 3vw, 52px); font-weight:800; color:var(--amber-deep); flex-shrink:0; }
-  .achieve-item p{ margin:0; font-size:var(--text); font-weight:600; color:var(--navy-950); line-height:1.4; }
-
-  /* Survival / thoughts cloud layout */
-  .thoughts{ position:relative; margin-top:10px; }
-  .thought-row{ display:flex; flex-wrap:wrap; gap:16px; }
-  .bubble{
-    flex:1;
-    background:var(--paper-dim); border:1px solid var(--line); border-radius:14px;
-    padding:clamp(20px, 3vh, 36px) clamp(24px, 3vw, 48px); font-size:var(--text); font-weight:600; color:var(--navy-800);
-  }
-  .bubble.accent{ background:rgba(230,161,61,0.14); border-color:rgba(230,161,61,0.4); color:var(--amber-deep); }
-
-  /* Mind-map style tips */
-  .tip-list{ list-style:none; margin:0; padding:0; width:100%; }
-  .tip-list li{
-    display:flex; align-items:center; gap:16px; padding:clamp(16px, 2.8vh, 30px) 0; border-bottom:1px solid var(--line);
-    font-size:var(--text); font-weight:600; color:var(--navy-950);
-  }
-  .tip-list li:last-child{ border-bottom:none; }
-  .tip-list li .dot{ width:10px; height:10px; border-radius:50%; background:var(--amber); flex-shrink:0; }
-
-  /* Numbered card grid (how to get selected) */
-  .grid5{ display:grid; grid-template-columns:1fr 1fr; gap:16px 28px; width:100%; }
-  .grid5 .card{ display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); }
-  .grid5 .card .n{
-    flex-shrink:0; width:38px; height:38px; border-radius:6px; background:var(--navy-950); color:#fff;
-    font-size:var(--small); font-weight:700; display:flex; align-items:center; justify-content:center;
-  }
-  .grid5 .card h3{ margin:0 0 4px 0; font-size:var(--text); font-weight:700; color:var(--navy-950); }
-  .grid5 .card p{ margin:0; font-size:var(--detail); color:var(--ink-soft); line-height:1.45; }
-
-  /* Two column challenges */
-  .cols{ display:flex; gap: clamp(26px,4vw,60px); }
-  .col{ flex:1; min-width:0; }
-  .col h3{ font-size:var(--detail); font-weight:700; color:var(--navy-800); margin:0 0 14px 0; padding-bottom:9px; border-bottom:2px solid var(--navy-800); }
-  .col.alt h3{ color:var(--amber-deep); border-bottom-color:var(--amber-deep); }
-  .col ul{ list-style:none; margin:0; padding:0; }
-  .col li{ font-size:var(--text); line-height:1.5; color:var(--ink); padding:10px 0; border-bottom:1px solid var(--line); position:relative; padding-left:22px; }
-  .col li:last-child{ border-bottom:none; }
-  .col li::before{ content:""; position:absolute; left:0; top:calc(10px + .75em - 4px); width:8px; height:8px; background:var(--navy-800); border-radius:50%; }
-  .col.alt li::before{ background:var(--amber-deep); }
-
-  /* Growth grid */
-  .growth-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px 28px; width:100%; }
-  .growth-item{ padding:14px 0; border-bottom:1px solid var(--line); }
-  .growth-item h3{ margin:0 0 4px 0; font-size:var(--text); font-weight:700; color:var(--navy-950); }
-  .growth-item p{ margin:0; font-size:var(--detail); color:var(--ink-soft); line-height:1.45; }
-
-  /* Key takeaway / thank you */
-  .quote-block{ background:linear-gradient(120deg, var(--navy-900), var(--navy-800)); color:#fff; padding:26px 32px; border-radius:8px; width:100%; }
-  .quote-block p{ margin:0; font-size:clamp(28px, min(3vw, 5vh), 54px); font-weight:700; line-height:1.35; }
-  .takeaway-mini{ list-style:none; margin:0; padding:0; width:100%; }
-  .takeaway-mini li{ font-size:var(--text); font-weight:600; color:var(--navy-950); padding:9px 0; border-bottom:1px solid var(--line); }
-  .takeaway-mini li:last-child{ border-bottom:none; }
-  .thanks-row > div:first-child{ flex:1; min-width:0; }
-  .thanks-row{ display:flex; justify-content:space-between; align-items:center; gap:30px; flex-wrap:wrap; margin-top:6px; }
-  .qr-box{
-    width:112px; height:112px; border:2px dashed var(--line); border-radius:8px;
-    display:flex; align-items:center; justify-content:center; font-size:var(--small); color:var(--ink-soft); text-align:center; padding:8px; flex-shrink:0;
-  }
-  .contact-line{ font-size:var(--text); font-weight:600; color:var(--navy-950); }
-
-  /* Nav controls */
-  .nav{ position:fixed; bottom:16px; right:28px; z-index:10; display:flex; align-items:center; gap:14px; font-size:var(--small); color:var(--ink-soft); }
-  .nav button{ width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .15s ease; }
-  .nav button:hover{ border-color:var(--navy-800); }
-  .nav button svg{ width:16px; height:16px; stroke:var(--navy-950); }
-  .nav .count{ font-variant-numeric:tabular-nums; min-width:46px; text-align:center; }
-
-  .progress{ position:fixed; top:0; left:0; height:3px; background:var(--amber); z-index:10; transition:width .35s ease; }
-
-  @media (max-width: 760px){
-    .slide{ padding:28px 24px 80px; }
-    .body{ flex:0 0 auto; }
-    .title-slide .body{ flex:1 0 auto; }
-    .schedule{ grid-template-columns:1fr; grid-template-rows:none; grid-auto-flow:row; }
-    .foot{ padding-top:16px; }
-    .panel .pmain{ gap:8px; }
-    .thought-row{ flex-direction:column; }
-    .title-meta{ gap:20px; margin-top:16px; }
-    .title-slide .mark{ margin-bottom:8px; }
-    .cols, .panels{ flex-direction:column; }
-    .achieve-grid, .grid5, .growth-grid{ grid-template-columns:1fr; }
-    .timeline{ flex-wrap:wrap; row-gap:20px; }
-    .timeline::before{ display:none; }
-    .tl-node{ flex:1 1 45%; padding-right:0; }
-    .thanks-row{ flex-direction:column; align-items:flex-start; }
-  }
+  .foot{position:absolute;left:clamp(28px,8vw,120px);right:clamp(28px,8vw,120px);bottom:clamp(18px,3vw,36px);display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:500}
+  .slide.dark .foot{color:rgba(255,255,255,.6)}
+  .progress{position:fixed;left:0;bottom:0;height:3px;background:var(--white);mix-blend-mode:difference;transition:width .25s ease;z-index:9}
+  .nav{position:fixed;right:22px;bottom:18px;display:flex;gap:6px;z-index:9}
+  .nav button{border:1px solid var(--line);background:var(--white);color:var(--navy);width:40px;height:40px;border-radius:6px;font-size:18px;cursor:pointer;font-family:inherit}
+  .nav button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+  .hint{font-size:13px;color:rgba(255,255,255,.55);margin-top:2.5em}
+  @media (max-width:640px){.agenda{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.vs .mid{display:none}.foot{display:none}}
+  @media print{html,body{overflow:visible;height:auto}.slide{display:flex!important;position:relative;height:100vh;page-break-after:always}.nav,.progress{display:none}}
 </style>
 </head>
 <body>
-
-<div class="progress" id="progress"></div>
 <div class="deck" id="deck">
 
-  <!-- 1. TITLE -->
-  <section class="slide dark active title-slide">
-    <div class="body">
-      <div class="mark"></div>
-      <div class="kicker">Tech career sharing session</div>
-      <h1>Campus to Career</h1>
-      <p class="lead">My journey at One More Group — what I learned, what nearly stopped me, and what I'd tell my university self.</p>
-      <div class="title-meta">
-        <div><strong>Sereyvichea Saro</strong>Software Developer, One More Group</div>
-        <div><strong>[Event Name]</strong>Phnom Penh, Cambodia</div>
-        <div><strong>[Date]</strong>Sharing session</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2. AGENDA / SCHEDULE -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">Session plan · 60 minutes total</div>
-      <h2>Today's agenda</h2>
-      <ul class="schedule">
-        <li><span class="t">2 min</span><span class="label">Welcome &amp; introduction</span></li>
-        <li><span class="t">5 min</span><span class="label">Let's get to know each other</span></li>
-        <li><span class="t">6 min</span><span class="label">My roadmap: intern to full-time developer</span></li>
-        <li><span class="t">4 min</span><span class="label">Why did I do internships?</span></li>
-        <li><span class="t">4 min</span><span class="label">My achievements</span></li>
-        <li><span class="t">5 min</span><span class="label">Survival: 3 years ago</span></li>
-        <li><span class="t">6 min</span><span class="label">Tips that helped me most</span></li>
-        <li><span class="t">8 min</span><span class="label">How to get selected for an internship</span></li>
-        <li><span class="t">7 min</span><span class="label">Challenges at each stage</span></li>
-        <li><span class="t">5 min</span><span class="label">Growth &amp; lessons from One More Group</span></li>
-        <li><span class="t">7 min</span><span class="label">Key takeaway, thank you &amp; Q&amp;A</span></li>
-      </ul>
-      <div class="total"><span class="pill">60 min</span> Total session length</div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 3. ICEBREAKER -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">Let's get to know each other!</div>
-      <h2>Before we start — a quick round</h2>
-      <p class="lead">Turn to the person next to you, or just shout it out. Two minutes, then we'll hear a few answers.</p>
-      <ul class="prompt-list">
-        <li>What year are you in, and what are you studying?</li>
-        <li>Have you built anything outside of class yet?</li>
-        <li>What's the one thing you're most unsure about in this career path?</li>
-      </ul>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 4. ROADMAP -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">My roadmap</div>
-      <h2>How I got from student to full-time developer</h2>
-      <div class="timeline">
-        <div class="tl-node"><div class="tl-dot">1</div><h3>Intern, One More Group</h3><p>Started in Year 4 of university</p></div>
-        <div class="tl-node"><div class="tl-dot">2</div><h3>Defence project atITC + full time</h3><p>Year 5 — internship at ITC alongside a full-time role at One More Group</p></div>
-        <div class="tl-node"><div class="tl-dot">3</div><h3>Graduated</h3><p>Information &amp; Communication Engineering</p></div>
-        <div class="tl-node current"><div class="tl-dot">4</div><h3>Full-time developer</h3><p>Hired as a full-time software developer</p></div>
-        <div class="tl-node"><div class="tl-dot">5</div><h3>Kept growing</h3><p>Through real projects and real challenges</p></div>
-      </div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 5. WHY INTERNSHIPS -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">The question everyone asks</div>
-      <h2>Why did I do internships?</h2>
-      <p class="lead">Every job wants experience. But how do you get experience before anyone gives you a job? An internship is how you break that loop.</p>
-      <div class="panels">
-        <div class="panel blocked">
-          <div class="plabel">Without an internship</div>
-          <div class="pmain">Me <span class="arrow">→</span> <span class="box blocker">Zero experience</span> <span class="arrow">→</span> <span class="box">The Job</span></div>
-        </div>
-        <div class="panel">
-          <div class="plabel">With an internship</div>
-          <div class="pmain">Me <span class="arrow">→</span> <span class="box">Internship</span> <span class="arrow">→</span> <span class="box">The Job</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 6. MY ACHIEVEMENTS -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">Along the way</div>
-      <h2>My achievements</h2>
-      <div class="achieve-grid">
-        <div class="achieve-item"><div class="num">01</div><p>Found my real passion</p></div>
-        <div class="achieve-item"><div class="num">02</div><p>Developed professionalism</p></div>
-        <div class="achieve-item"><div class="num">03</div><p>Earned a full-time job opportunity</p></div>
-        <div class="achieve-item"><div class="num">04</div><p>Gained practical work experience</p></div>
-      </div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 7. SURVIVAL: 3 YEARS AGO -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">Survival · 3 years ago</div>
-      <h2>What was actually going through my head</h2>
-      <p class="lead">If you're feeling lost right now, I want you to know — this is exactly where I started too.</p>
-      <div class="thoughts">
-        <div class="thought-row">
-          <div class="bubble">"What is it? I don't even understand the job posting."</div>
-          <div class="bubble">"How? Who do I even ask?"</div>
-        </div>
-        <div class="thought-row" style="margin-top:16px;">
-          <div class="bubble accent">"Maybe everyone else already knows what I don't."</div>
-        </div>
-      </div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 8. TIPS -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">What actually helped</div>
-      <h2>Tips that made the biggest difference</h2>
-      <ul class="tip-list">
-        <li><span class="dot"></span>Actively source information about opportunities</li>
-        <li><span class="dot"></span>Set a clear goal and a realistic expectation</li>
-        <li><span class="dot"></span>Keep learning, stay positive, build a good network</li>
-        <li><span class="dot"></span>Stay engaged and active — don't wait to be noticed</li>
-        <li><span class="dot"></span>Track your own projects and progress</li>
-      </ul>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 9. HOW TO GET SELECTED -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">Practical advice</div>
-      <h2>How to get selected for an internship</h2>
-      <div class="grid5">
-        <div class="card"><div class="n">1</div><div><h3>Build your foundation</h3><p>Polish your GitHub, work on side projects, show real work — not just certificates.</p></div></div>
-        <div class="card"><div class="n">2</div><div><h3>Network early</h3><p>Join tech communities and attend events before you need something from them.</p></div></div>
-        <div class="card"><div class="n">3</div><div><h3>Apply proactively</h3><p>Don't wait — send CVs to companies you like, and personalize every message.</p></div></div>
-        <div class="card"><div class="n">4</div><div><h3>Prepare well for the interview</h3><p>Know exactly what's in your CV, and be ready to demo your work.</p></div></div>
-        <div class="card"><div class="n">5</div><div><h3>Show attitude</h3><p>Companies hire attitude and train skills. Curiosity and willingness to learn go a long way.</p></div></div>
-      </div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 10. CHALLENGES AT EACH STAGE -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">It doesn't get easier — it changes</div>
-      <h2>Challenges at each stage</h2>
-      <div class="cols">
-        <div class="col">
-          <h3>Internship phase</h3>
-          <ul>
-            <li>Technical challenges you haven't seen before</li>
-            <li>Being scared to ask "basic" questions</li>
-            <li>A doubt mindset — wondering if you belong</li>
-          </ul>
-        </div>
-        <div class="col alt">
-          <h3>Full-time staff</h3>
-          <ul>
-            <li>Full ownership and accountability for your work</li>
-            <li>Constant speed vs. quality trade-offs</li>
-            <li>Giving and receiving honest feedback</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 11. GROWTH & LESSONS -->
-  <section class="slide">
-    <div class="body">
-      <div class="kicker">Reflecting back</div>
-      <h2>Growth &amp; lessons from One More Group</h2>
-      <div class="growth-grid">
-        <div class="growth-item"><h3>Technical growth</h3><p>Polishing my GitHub, taking side projects seriously, showcasing real work.</p></div>
-        <div class="growth-item"><h3>Problem-solving mindset</h3><p>Moved from "I don't know" to "let me try and figure it out."</p></div>
-        <div class="growth-item"><h3>Business mindset</h3><p>Learning to turn a business need into working code.</p></div>
-        <div class="growth-item"><h3>Time management</h3><p>Deadlines teach prioritization better than any book.</p></div>
-        <div class="growth-item"><h3>Resilience</h3><p>Bugs and hard feedback — all of it made me stronger.</p></div>
-        <div class="growth-item"><h3>Teamwork</h3><p>Learning to adapt my work to the team, not just to myself.</p></div>
-      </div>
-    </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
-  </section>
-
-  <!-- 12. KEY TAKEAWAY / THANK YOU -->
+  <!-- 1 Title -->
   <section class="slide dark">
-    <div class="body">
-      <div class="kicker">Key takeaway</div>
-      <div class="quote-block">
-        <p>"Your journey does not need to be perfect — it just needs to be yours."</p>
+    <h1>From Campus to Career</h1>
+    <p class="sub">My journey from student to developer — and what I wish I knew before day one.</p>
+    <div class="cols" style="margin-top:3em">
+      <div>Saro Sereyvichea · Application Developer · OML</div>
+      <div>14 Sep 2026</div>
+    </div>
+    <div class="hint">Use → ← or space to move between slides. Dashed boxes are editable — click to type.</div>
+  </section>
+
+  <!-- 2 Agenda -->
+  <section class="slide dark">
+    <!-- <div class="num">45 minutes</div> -->
+    <h2>What we'll cover</h2>
+    <div class="agenda">
+      <div>Introduction &amp; get to know each other</div>
+      <div>Roadmap</div>
+      <div>Why internship</div>
+      <div>How I found and got my internship</div>
+      <div>From intern to full time staff</div>
+      <div>Challenges at each stage</div>
+      <div>Learning new technology in the AI era</div>
+      <div>Can AI really replace developers?</div>
+      <div>What AI contributes to business</div>
+      <div>From PRD to PROD</div>
+      <div>The developer of the future</div>
+      <div>Key takeaways</div>
+    </div>
+  </section>
+
+  <!-- 3 Introduction -->
+  <section class="slide">
+    <div class="num">01 — Introduction</div>
+    <div class="line"></div>
+    <h2>Let's get to know each other</h2>
+    <div class="cols">
+      <div>
+        <h3>About me</h3>
+        <div>2025 Graduated from Institute of Technology of Cambodia - Currently pursuing a career in software development - Still figuring things out!  [fun fact]</div>
       </div>
-      <ul class="takeaway-mini">
-        <li style="color:#fff;">Start your journey with action, not perfection</li>
-        <li style="color:#fff;">Build connections — your network is your net worth</li>
-        <li style="color:#fff;">Every challenge is data for your growth</li>
-        <li style="color:#fff;">Be grateful, stay humble, keep learning</li>
-      </ul>
-      <div class="thanks-row">
-        <div>
-          <h2 style="color:#fff; margin-bottom:6px;">Thank you — questions welcome!</h2>
-          <div class="contact-line" style="color:var(--blue-soft);">@SaroSereyvichea · Let's connect</div>
-        </div>
-        <div class="qr-box">Add your QR code here</div>
+      <div>
+        <h3>About you</h3>
+        <ul>
+          <li>What year are you in?</li>
+          <li>What are you building right now?</li>
+          <li>What worries you most about your first job?</li>
+        </ul>
       </div>
     </div>
-    <div class="foot"><span class="tag">Campus to Career</span></div>
+  </section>
+
+  <!-- 4 Roadmap -->
+  <section class="slide">
+    <div class="num">02 — Roadmap</div>
+    <div class="line"></div>
+    <h2>The path, stage by stage</h2>
+    <div class="steps">
+      <div class="step"><b>Student</b><span>Fundamentals, projects, curiosity.</span></div>
+      <div class="step"><b>Intern</b><span>Real codebase, real team, real feedback.</span></div>
+      <div class="step"><b>Junior developer</b><span>Own small features end to end.</span></div>
+      <div class="step"><b>Developer</b><span>Own problems, not just tickets.</span></div>
+      <div class="step"><b>Beyond</b><span>Senior, lead, specialist — you choose.</span></div>
+    </div>
+    <div>Your own timeline: years, milestones, what changed at each step.</div>
+  </section>
+
+  <!-- 5 Why internship -->
+  <section class="slide dark">
+    <div class="num">03 — Why internship</div>
+    <div class="line"></div>
+    <h2>Why an internship matters</h2>
+    <div class="cols">
+      <ul>
+        <li>You learn how software is actually built, not just how code is written</li>
+        <li>You work with Git, code review, deadlines and people</li>
+        <li>You discover which kind of work you like — before committing</li>
+        <li>It's the most common door into a first full‑time role</li>
+      </ul>
+      <div>
+        <h3>In my case</h3>
+        <div>Gained real-world experience working on actual projects and collaborating with a team of developers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 Finding an internship -->
+  <section class="slide">
+    <div class="num">04 — Finding an internship</div>
+    <div class="line"></div>
+    <h2>How I found and got my internship</h2>
+    <div class="cols">
+      <div>
+        <h3>Where I looked</h3>
+        <div>Attended </div>
+      </div>
+      <div>
+        <h3>What got me the offer</h3>
+        <div>Portfolio, GitHub projects, how you prepared for the interview, what the interview looked like.</div>
+      </div>
+      <div>
+        <h3>What I'd do differently</h3>
+        <div>Mistakes, wasted time, things you'd start earlier.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 Intern to full-time -->
+  <section class="slide">
+    <div class="num">05 — Intern to full‑time</div>
+    <div class="line"></div>
+    <h2>Turning an internship into a job</h2>
+    <div class="cols">
+      <ul>
+        <li>Ask questions early; ship something small, then something bigger</li>
+        <li>Be reliable — finish what you start and communicate blockers</li>
+        <li>Understand the product and the users, not only the code</li>
+        <li>Write things down: notes, docs, commit messages</li>
+      </ul>
+      <div>
+        <h3>My story</h3>
+        <div class="fill" contenteditable="true">How and when you were offered a full‑time role, what the manager said mattered, how the role changed.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 Challenges -->
+  <section class="slide dark">
+    <div class="num">06 — Challenges</div>
+    <div class="line"></div>
+    <h2>Challenges at each stage</h2>
+    <div class="steps">
+      <div class="step"><b>As a student</b><span class="fill" contenteditable="true">e.g. too many technologies, no direction, no real projects.</span></div>
+      <div class="step"><b>As an intern</b><span class="fill" contenteditable="true">e.g. large codebase, imposter feeling, asking for help.</span></div>
+      <div class="step"><b>As a junior</b><span class="fill" contenteditable="true">e.g. ownership, estimates, bugs in production.</span></div>
+      <div class="step"><b>As a developer</b><span class="fill" contenteditable="true">e.g. balancing speed and quality, mentoring, keeping up.</span></div>
+    </div>
+  </section>
+
+  <!-- 9 Learning in the AI era -->
+  <section class="slide">
+    <div class="num">07 — Learning</div>
+    <div class="line"></div>
+    <h2>How I learn new technology in the AI era</h2>
+    <div class="cols">
+      <ul>
+        <li>Start with the official docs, then use AI to explain what confuses you</li>
+        <li>Build a small real thing — learning sticks when it's used</li>
+        <li>Ask AI to review your code and explain its suggestions, not just apply them</li>
+        <li>Keep fundamentals strong: HTTP, data structures, databases, Git</li>
+      </ul>
+      <div>
+        <h3>My workflow</h3>
+        <div class="fill" contenteditable="true">The tools you use, a recent technology you learned this way, how long it took.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 Can AI replace developers -->
+  <section class="slide dark">
+    <div class="num">08 — AI and developers</div>
+    <div class="line"></div>
+    <h2>Can AI really replace developers?</h2>
+    <div class="vs">
+      <div>
+        <h3>What AI does well</h3>
+        <ul>
+          <li>Boilerplate and repetitive code</li>
+          <li>Explaining unfamiliar code</li>
+          <li>First drafts of tests and docs</li>
+        </ul>
+      </div>
+      <div class="mid">vs</div>
+      <div>
+        <h3>What still needs you</h3>
+        <ul>
+          <li>Understanding what the business actually needs</li>
+          <li>Judging trade‑offs and taking responsibility</li>
+          <li>Verifying that the output is correct and safe</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fill" style="margin-top:1.5em" contenteditable="true">Your honest opinion, and a real example from your work.</div>
+  </section>
+
+  <!-- 11 AI in business -->
+  <section class="slide">
+    <div class="num">09 — AI in business</div>
+    <div class="line"></div>
+    <h2>What AI contributes to business</h2>
+    <div class="cols">
+      <ul>
+        <li>Faster delivery — prototypes in hours instead of weeks</li>
+        <li>Automation of support, data entry and reporting</li>
+        <li>Better decisions from data that used to sit unused</li>
+        <li>New products that weren't possible before</li>
+      </ul>
+      <div>
+        <h3>What I've seen</h3>
+        <div class="fill" contenteditable="true">Examples from your company or the Cambodian market.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 PRD to PROD -->
+  <section class="slide">
+    <div class="num">10 — PRD to PROD</div>
+    <div class="line"></div>
+    <h2>From PRD to PROD</h2>
+    <div class="steps">
+      <div class="step"><b>PRD</b><span>Understand the requirement and ask why.</span></div>
+      <div class="step"><b>Design</b><span>UI, data model, API, edge cases.</span></div>
+      <div class="step"><b>Build</b><span>Small commits, tests, code review.</span></div>
+      <div class="step"><b>QA</b><span>Test with real scenarios, fix, repeat.</span></div>
+      <div class="step"><b>Release</b><span>Deploy, monitor, learn, improve.</span></div>
+    </div>
+    <div class="fill" style="margin-top:1.5em" contenteditable="true">Walk through one real feature you shipped, from ticket to production.</div>
+  </section>
+
+  <!-- 13 Future -->
+  <section class="slide dark">
+    <div class="num">11 — Looking ahead</div>
+    <div class="line"></div>
+    <h2>The developer of the future</h2>
+    <div class="cols">
+      <ul>
+        <li>Less typing, more thinking: problem framing and system design</li>
+        <li>Product sense becomes a core developer skill</li>
+        <li>Communication matters as much as code</li>
+        <li>Learning never stops — and that's the fun part</li>
+      </ul>
+      <div>
+        <h3>My perspective</h3>
+        <div class="fill" contenteditable="true">Where you think the role is going in the next 3–5 years, especially in Cambodia.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 Key takeaways -->
+  <section class="slide">
+    <div class="num">12 — Key takeaways</div>
+    <div class="line"></div>
+    <h2>If you remember only three things</h2>
+    <div class="steps">
+      <div class="step"><b>Start before you feel ready</b><span class="fill" contenteditable="true">Your one‑line message.</span></div>
+      <div class="step"><b>Build things people can see</b><span class="fill" contenteditable="true">Your one‑line message.</span></div>
+      <div class="step"><b>Use AI, but own the result</b><span class="fill" contenteditable="true">Your one‑line message.</span></div>
+    </div>
+  </section>
+
+  <!-- 15 Close -->
+  <section class="slide dark">
+    <h1>Thank you</h1>
+    <p class="sub">Questions?</p>
+    <div class="cols" style="margin-top:2.5em">
+      <div class="fill" contenteditable="true">Email / LinkedIn / GitHub / Telegram</div>
+    </div>
   </section>
 
 </div>
 
+<div class="progress" id="progress"></div>
 <div class="nav">
-  <button id="prevBtn" aria-label="Previous slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-  </button>
-  <span class="count"><span id="curNum">1</span> / <span id="totalNum">12</span></span>
-  <button id="nextBtn" aria-label="Next slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-  </button>
+  <button id="prev" aria-label="Previous slide">‹</button>
+  <button id="next" aria-label="Next slide">›</button>
 </div>
 
 <script>
-  const slides = document.querySelectorAll('.slide');
-  const total = slides.length;
-  let current = 0;
-  const curNum = document.getElementById('curNum');
-  const totalNum = document.getElementById('totalNum');
-  const progress = document.getElementById('progress');
-  totalNum.textContent = total;
+  const slides=[...document.querySelectorAll('.slide')];
+  const total=slides.length;
+  let i=Math.min(Math.max(parseInt(location.hash.slice(1))||1,1),total)-1;
 
-  function show(idx){
-    slides[current].classList.remove('active');
-    current = Math.max(0, Math.min(total - 1, idx));
-    slides[current].classList.add('active');
-    curNum.textContent = current + 1;
-    progress.style.width = ((current + 1) / total * 100) + '%';
+  slides.forEach((s,idx)=>{
+    if(idx>0 && idx<total-1){
+      const f=document.createElement('div');
+      f.className='foot';
+      f.innerHTML='<span>From Campus to Career</span><span>'+(idx+1)+' / '+total+'</span>';
+      s.appendChild(f);
+    }
+  });
+
+  function show(n){
+    i=(n+total)%total;
+    slides.forEach((s,idx)=>s.classList.toggle('active',idx===i));
+    document.getElementById('progress').style.width=((i+1)/total*100)+'%';
+    try{history.replaceState(null,'','#'+(i+1));}catch(err){}
   }
-
-  document.getElementById('nextBtn').addEventListener('click', () => show(current + 1));
-  document.getElementById('prevBtn').addEventListener('click', () => show(current - 1));
-
-  window.addEventListener('keydown', (e) => {
-    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); show(current + 1); }
-    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); show(current - 1); }
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.getElementById('prev').onclick=()=>show(i-1);
+  document.addEventListener('keydown',e=>{
+    if(e.target.isContentEditable) return;
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();show(i+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+    if(e.key==='Home')show(0);
+    if(e.key==='End')show(total-1);
+    if(e.key==='f'||e.key==='F'){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}catch(err){}}
   });
-
-  let touchStartX = 0;
-  window.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
-  window.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if(dx > 50) show(current - 1);
-    if(dx < -50) show(current + 1);
+  let tx=null;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+  document.addEventListener('touchend',e=>{
+    if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;
+    if(Math.abs(dx)>50)show(dx<0?i+1:i-1);
   });
-
-  show(0);
+  show(i);
 </script>
-
 </body>
 </html>
