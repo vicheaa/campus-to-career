@@ -73,7 +73,8 @@
   .slide.dark .foot{color:rgba(255,255,255,.6)}
   .progress{position:fixed;left:0;bottom:0;height:3px;background:var(--white);mix-blend-mode:difference;transition:width .25s ease;z-index:9}
   .nav{position:fixed;right:22px;bottom:18px;display:flex;gap:6px;z-index:9}
-  .nav button{border:1px solid var(--line);background:var(--white);color:var(--navy);width:40px;height:40px;border-radius:6px;font-size:18px;cursor:pointer;font-family:inherit}
+  .nav button{border:1px solid var(--line);background:var(--white);color:var(--navy);width:40px;height:40px;border-radius:6px;padding:0;display:grid;place-items:center;cursor:pointer}
+  .nav button svg{display:block;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .nav button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   .hint{font-size:13px;color:rgba(255,255,255,.55);margin-top:2.5em}
   @media (max-width:640px){.agenda{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.vs .mid{display:none}.foot{display:none}}
@@ -346,8 +347,8 @@
 
 <div class="progress" id="progress"></div>
 <div class="nav">
-  <button id="prev" aria-label="Previous slide">‹</button>
-  <button id="next" aria-label="Next slide">›</button>
+  <button id="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+  <button id="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
 </div>
 
 <script>
