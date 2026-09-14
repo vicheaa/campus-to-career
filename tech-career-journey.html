@@ -48,6 +48,7 @@
   .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;margin-top:1em}
   .step{border-top:3px solid var(--navy);padding-top:14px}
   .slide.dark .step{border-top-color:var(--white)}
+  .step.current,.slide.dark .step.current{border-top-color:#E6A13D;box-shadow:0 -2px 0 #E6A13D}
   .step b{display:block;font-size:clamp(16px,1.4vw,20px);margin-bottom:.3em}
   .step span{font-size:clamp(14px,1.15vw,17px);color:var(--muted);line-height:1.45}
   .slide.dark .step span{color:rgba(255,255,255,.78)}
@@ -77,6 +78,9 @@
   .nav button svg{display:block;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .nav button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   .hint{font-size:13px;color:rgba(255,255,255,.55);margin-top:2.5em}
+  .closing-layout{display:flex;align-items:center;justify-content:space-between;gap:48px;width:100%}
+  .closing-contact{display:flex;flex-direction:column;align-items:center;gap:16px;flex-shrink:0}
+  @media (max-width:640px){.closing-layout{flex-direction:column;align-items:flex-start;gap:32px}.closing-contact{align-self:flex-end}}
   @media (max-width:640px){.agenda{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.vs .mid{display:none}.foot{display:none}}
   @media print{html,body{overflow:visible;height:auto}.slide{display:flex!important;position:relative;height:100vh;page-break-after:always}.nav,.progress{display:none}}
 </style>
@@ -142,13 +146,13 @@
     <div class="line"></div>
     <h2>The path, stage by stage</h2>
     <div class="steps">
-      <div class="step"><b>Student</b><span>Fundamentals, projects, curiosity.</span></div>
-      <div class="step"><b>Intern</b><span>Real codebase, real team, real feedback.</span></div>
-      <div class="step"><b>Junior developer</b><span>Own small features end to end.</span></div>
-      <div class="step"><b>Developer</b><span>Own problems, not just tickets.</span></div>
-      <div class="step"><b>Beyond</b><span>Senior, lead, specialist — you choose.</span></div>
+      <div class="step"><b>Intern</b><span>Start as an Intern in Year 4</span></div>
+      <div class="step"><b>Developer</b><span>Thesis project and full time staff at OML</span></div>
+      <div class="step"><b>Graduate</b><span>Computer Science</span></div>
+      <div class="step current" aria-current="step"><b>Developer</b><span>Own problems, not just tickets. Explore more...</span></div>
+      <div class="step"><b>Beyond</b><span>Keep learning - Keep growing</span></div>
     </div>
-    <div>Your own timeline: years, milestones, what changed at each step.</div>
+    <!-- <div>Your own timeline: years, milestones, what changed at each step.</div> -->
   </section>
 
   <!-- 5 Why internship -->
@@ -178,15 +182,15 @@
     <div class="cols">
       <div>
         <h3>Where I looked</h3>
-        <div>Attended </div>
+        <div>Attended to event that led to the internship opportunity.</div>
       </div>
       <div>
         <h3>What got me the offer</h3>
-        <div>Portfolio, GitHub projects, how you prepared for the interview, what the interview looked like.</div>
+        <div>Portfolio, School projects, prepare well for the interview.</div>
       </div>
       <div>
         <h3>What I'd do differently</h3>
-        <div>Mistakes, wasted time, things you'd start earlier.</div>
+        <div>Focus on building a strong foundation in the fundamentals.</div>
       </div>
     </div>
   </section>
@@ -205,7 +209,9 @@
       </ul>
       <div>
         <h3>My story</h3>
-        <div class="fill" contenteditable="true">How and when you were offered a full‑time role, what the manager said mattered, how the role changed.</div>
+        <div>
+          Ask good questions, take initiative, and show that you can contribute to the team. Demonstrate your skills and work ethic during the internship, and express your interest in a full-time role.
+        </div>
       </div>
     </div>
   </section>
@@ -216,10 +222,9 @@
     <div class="line"></div>
     <h2>Challenges at each stage</h2>
     <div class="steps">
-      <div class="step"><b>As a student</b><span class="fill" contenteditable="true">e.g. too many technologies, no direction, no real projects.</span></div>
-      <div class="step"><b>As an intern</b><span class="fill" contenteditable="true">e.g. large codebase, imposter feeling, asking for help.</span></div>
-      <div class="step"><b>As a junior</b><span class="fill" contenteditable="true">e.g. ownership, estimates, bugs in production.</span></div>
-      <div class="step"><b>As a developer</b><span class="fill" contenteditable="true">e.g. balancing speed and quality, mentoring, keeping up.</span></div>
+      <div class="step"><b>As a student</b><span>Too many technologies, no direction, no real projects.</span></div>
+      <div class="step"><b>As an intern</b><span>Scare of not knowing enough, imposter syndrome.</span></div>
+      <div class="step"><b>As a developer</b><span>Still figuring things out, managing expectations.</span></div>
     </div>
   </section>
 
@@ -237,7 +242,7 @@
       </ul>
       <div>
         <h3>My workflow</h3>
-        <div class="fill" contenteditable="true">The tools you use, a recent technology you learned this way, how long it took.</div>
+        <div>Fundamental - Architecture - Implementation  [start with small project]</div>
       </div>
     </div>
   </section>
@@ -266,7 +271,7 @@
         </ul>
       </div>
     </div>
-    <div class="fill" style="margin-top:1.5em" contenteditable="true">Your honest opinion, and a real example from your work.</div>
+    <div style="margin-top:1.5em">Take ownership of the final product and ensure it meets the business needs. A quality developer use AI as assistan not a replacement.</div>
   </section>
 
   <!-- 11 AI in business -->
@@ -283,7 +288,7 @@
       </ul>
       <div>
         <h3>What I've seen</h3>
-        <div class="fill" contenteditable="true">Examples from your company or the Cambodian market.</div>
+        <div>Chat bot - Automation - Research and Innovation</div>
       </div>
     </div>
   </section>
@@ -300,7 +305,7 @@
       <div class="step"><b>QA</b><span>Test with real scenarios, fix, repeat.</span></div>
       <div class="step"><b>Release</b><span>Deploy, monitor, learn, improve.</span></div>
     </div>
-    <div class="fill" style="margin-top:1.5em" contenteditable="true">Walk through one real feature you shipped, from ticket to production.</div>
+    <!-- <div style="margin-top:1.5em">Walk through one real feature you shipped, from ticket to production.</div> -->
   </section>
 
   <!-- 13 Future -->
@@ -317,7 +322,7 @@
       </ul>
       <div>
         <h3>My perspective</h3>
-        <div class="fill" contenteditable="true">Where you think the role is going in the next 3–5 years, especially in Cambodia.</div>
+        <div>More prompt- Focus on infrastructure - Business needs</div>
       </div>
     </div>
   </section>
@@ -328,18 +333,25 @@
     <div class="line"></div>
     <h2>If you remember only three things</h2>
     <div class="steps">
-      <div class="step"><b>Start before you feel ready</b><span class="fill" contenteditable="true">Your one‑line message.</span></div>
-      <div class="step"><b>Build things people can see</b><span class="fill" contenteditable="true">Your one‑line message.</span></div>
-      <div class="step"><b>Use AI, but own the result</b><span class="fill" contenteditable="true">Your one‑line message.</span></div>
+      <div class="step"><b>Start before you feel ready</b><span>Dont wait for perfection</span></div>
+      <div class="step"><b>Build things people can see</b><span>Start with from small</span></div>
+      <div class="step"><b>Use AI, but own the result</b><span>Ownership make you confident</span></div>
     </div>
   </section>
 
   <!-- 15 Close -->
   <section class="slide dark">
-    <h1>Thank you</h1>
-    <p class="sub">Questions?</p>
-    <div class="cols" style="margin-top:2.5em">
-      <div class="fill" contenteditable="true">Email / LinkedIn / GitHub / Telegram</div>
+    <div class="closing-layout">
+      <div>
+        <h1>Thank you</h1>
+        <p class="sub">Questions?</p>
+      </div>
+    <div class="closing-contact">
+      <a href="https://t.me/sarosereyvichea" aria-label="Connect with Saro Sereyvichea on Telegram">
+        <img src="assets/tg.svg" alt="QR code for Saro Sereyvichea’s Telegram" width="256" height="256" style="display:block;width:clamp(160px,28vh,256px);height:auto;padding:24px;background:#fff;border-radius:8px">
+      </a>
+      <a href="https://t.me/sarosereyvichea" style="color:inherit">https://t.me/sarosereyvichea</a>
+    </div>
     </div>
   </section>
 
